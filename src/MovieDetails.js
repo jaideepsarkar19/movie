@@ -5,10 +5,10 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 
 export function MovieDetails({ movieList }) {
-  const { movieid } = useParams();
-
-  const movie = movieList[movieid];
-  console.log(movieList, movie);
+  const { id } = useParams();
+  console.log(id)
+  const movie = movieList[id];
+  console.log(movie);
   const navigate = useNavigate();
   return (
     <div>

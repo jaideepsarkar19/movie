@@ -18,12 +18,13 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IconButton } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
-
+import { MovieDetails } from "./MovieDetails";
+// import Movietrailers from "./compoents/Movietrailers";
 
 
 console.log(moviedata);
-
 console.log(moviedata[2].summary);
+// const [trailer, setTrailer] = useState(0)
 
 const INITIAL_MOVIE_LIST = [
   {
@@ -33,7 +34,7 @@ const INITIAL_MOVIE_LIST = [
     rating: 9,
     summary:
       "An elite counter-intelligence unit learns of a plot, masterminded by a maniacal madman. With the clock ticking, it's up to them to track the terrorists.",
-    trailer: "https://youtu.be/-Yu_2nyOP5o",
+      trailer:"https://www.youtube.com/embed/-Yu_2nyOP5o",
   },
   {
     name: "Special 26",
@@ -42,49 +43,56 @@ const INITIAL_MOVIE_LIST = [
     rating: 7.8,
     summary:
       "Based on a real life group of con artists who pulled off many clever robberies during 1980s, and robbed famous businessmen and politicians by pretending to be the CBI or Income tax officers and conducting raids, on the pretext of conducting raids they would take away all the black money hoarded by them.",
-  },
+    trailer:"https://www.youtube.com/embed/xqgZHgHjWdE",
+    },
   {
     name: "GangaaJal ",
     poster: "https://m.media-amazon.com/images/M/MV5BYjRjOWViZTgtYjA4Ny00MWJiLTkxYzktMzdlOGRmMWYwOTdjXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg",
     rating: 8.9,
     summary:
       "An IPS officer motivates and leads a dysfunctional, corrupt police force of Tezpur to fight against a corrupt politician.",
-  },
+  trailer:" https://www.youtube.com/embed/cf5mD-Q05_8"
+    },
   {
     name: "Naam Shabana",
     poster: "https://m.media-amazon.com/images/M/MV5BMTkxMDk1Mjc2NF5BMl5BanBnXkFtZTgwNjk4Njk3MTI@._V1_SX300.jpg",
     rating: 7.2,
     summary:
       "There's no secret to The Secret. The book and movie simply state that your thoughts control the universe. Through this “law of attraction” you “manifest” your desires. “It is exactly like placing an order from Link catalogue",
-  },
+  trailer:"https://www.youtube.com/embed/upyeAQv4pUs" 
+    },
   {
     name: "Dangal",
     poster: "https://m.media-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SX300.jpg",
     rating: 8.8,
     summary:
       "Mahavir Singh Phogat, a former wrestler, decides to fulfil his dream of winning a gold medal for his country by training his daughters for the Commonwealth Games despite the existing social stigmas.",
-  },
+  trailer:"https://www.youtube.com/embed/x_7YlGv9u1g"
+    },
   {
     name: "Sultan",
     poster: "https://m.media-amazon.com/images/M/MV5BNDc0OTU3M2MtMGFhMi00ZGVlLWI4YmItODA1ZTc0OGY0NmJlXkEyXkFqcGdeQXVyNjQ2MjQ5NzM@._V1_SX300.jpg",
     rating: 7,
     summary:
       "After the death of his son, Sultan Ali Khan, a middle-aged wrestler, gives up the sport. Years later, he sets out to revive his career as he needs the prize money and wants to regain his lost respect.",
-  },
+      trailer:"https://www.youtube.com/embed/wPxqcq6Byq0",
+    },
   {
     name: "Vikram",
     poster: "https://m.media-amazon.com/images/M/MV5BMDRiOWNjYjUtMDI0ZC00MDMyLTkwZDItNTU5NWQ1NjEyNGYxXkEyXkFqcGdeQXVyMTIyNzY0NTMx._V1_SX300.jpg",
     rating: 8.1,
     summary:
       "A special agent investigates a murder committed by a masked group of serial killers. However, a tangled maze of clues soon leads him to the drug kingpin of Chennai.",
-  },
+  trailer:"https://www.youtube.com/embed/OKBMCL-frPU",
+    },
   {
     name: "Shinam",
     poster: "https://m.media-amazon.com/images/M/MV5BNGM0M2VhMzAtNDcwMS00OWEzLWFmNjUtYmNhNjE5M2Y1M2IzXkEyXkFqcGdeQXVyMTEzNzg0Mjkx._V1_SX300.jpg",
     rating: 7.0,
     summary:
       "A decent movie with a good message. There are some people who responded with as not much of a crime thriller or an 1960's movie storyline. But one thing women and children abuse are increasingly high only post 2000. So these kind of movie let's the parents know to educate boys on how they should behave with women and how to educate girls about the society and how rotten it got into. Overall a good attempt, and my kudos to the director and actors..",
-  },
+  trailer:"https://www.youtube.com/embed/eYkzBQJHCw0",
+    },
 ];
 
 
@@ -102,7 +110,7 @@ export default function App() {
   const navigate = useNavigate();
 
   return (
-    <ThemeProvider  theme={theme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <div>
         <AppBar className="theme" position="static">
@@ -140,6 +148,8 @@ export default function App() {
           <Route path="/movies/add" element={<AddMovie />} />
           <Route path="/add-colors" element={<AddColors />} />
           <Route path="/user-profile" element={<UserList />} />
+          <Route path="/movies/:id" element={<MovieDetails movieList={INITIAL_MOVIE_LIST} />} />
+         
         </Routes>
       </div>
     </ThemeProvider>
@@ -193,7 +203,7 @@ function Movie({ movie, id }) {
         onClick={() => setShow(!show)}>
 
         {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-      </IconButton>
+      </IconButton  >
 
       <IconButton
         aria-label="info"
@@ -201,7 +211,9 @@ function Movie({ movie, id }) {
         onClick={() => navigate("/movies/" + id)}>
         <InfoIcon />
       </IconButton>
-
+      <Routes>
+                <Route path={`/movies/${id}`} element={<Home/>} />
+            </Routes>
 
       {show ? <p className="movie-summary">{movie.summary}</p> : null}
       <Counter />
